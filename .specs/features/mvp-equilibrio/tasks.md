@@ -239,8 +239,8 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Exporta labels para healthy/attention/alert/balanced/unbalanced/empty
-- [ ] `npm run build` passa
+- [x] Exporta labels para healthy/attention/alert/balanced/unbalanced/empty
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: build  
