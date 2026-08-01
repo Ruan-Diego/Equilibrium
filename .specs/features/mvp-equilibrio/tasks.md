@@ -521,9 +521,9 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Checklist documentado: login, CRUD áreas, slider, estados, equilíbrio ≥8, histórico
-- [ ] Itens bloqueados (sem Firebase config) marcados explicitamente
-- [ ] `npm test && npm run build` passam
+- [x] Checklist documentado: login, CRUD áreas, slider, estados, equilíbrio ≥8, histórico
+- [x] Itens bloqueados (sem Firebase config) marcados explicitamente
+- [x] `npm test && npm run build` passam
 
 **Tests**: none (manual UAT notes)  
 **Gate**: full  
