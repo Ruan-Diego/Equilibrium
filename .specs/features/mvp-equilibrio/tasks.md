@@ -284,10 +284,10 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Transação atualiza `score`/`updatedAt` e cria evento com `previousValue`+`value`
-- [ ] No-op se `previous === next`
-- [ ] `listEventsForArea(areaId, since?)` para histórico
-- [ ] `npm run build` passa
+- [x] Transação atualiza `score`/`updatedAt` e cria evento com `previousValue`+`value`
+- [x] No-op se `previous === next`
+- [x] `listEventsForArea(areaId, since?)` para histórico
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: build  
