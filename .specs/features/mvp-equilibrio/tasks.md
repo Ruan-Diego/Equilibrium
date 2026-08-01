@@ -193,10 +193,10 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] `statusFromScore`: 8–10 healthy, 5–7 attention, 0–4 alert
-- [ ] `clampScore` limita e arredonda para inteiro 0–10
-- [ ] Testes cobrem limiares 0,4,5,7,8,10 + fora de faixa
-- [ ] Gate: `npm test` passa (test count ≥ 6)
+- [x] `statusFromScore`: 8–10 healthy, 5–7 attention, 0–4 alert
+- [x] `clampScore` limita e arredonda para inteiro 0–10
+- [x] Testes cobrem limiares 0,4,5,7,8,10 + fora de faixa
+- [x] Gate: `npm test` passa (test count ≥ 6)
 
 **Tests**: unit  
 **Gate**: quick  
