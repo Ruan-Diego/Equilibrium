@@ -27,25 +27,27 @@ export function AreaRail({ area, onScoreCommit, disabled }: AreaRailProps) {
   const status = statusFromScore(area.score)
 
   return (
-    <div className="flex w-28 shrink-0 flex-col items-center gap-3">
-      <div className="w-full text-center">
+    <div className="flex w-full items-center gap-3 sm:w-28 sm:shrink-0 sm:flex-col sm:gap-3">
+      <div className="w-24 shrink-0 sm:w-full sm:text-center">
         <p className="truncate text-sm font-medium text-foreground">
           {area.name}
         </p>
-        <p className={`mt-1 text-xs ${statusColorClass[status]}`}>
+        <p className={`mt-0.5 text-xs sm:mt-1 ${statusColorClass[status]}`}>
           {statusLabels[status]}
         </p>
       </div>
 
-      <AreaSlider
-        value={area.score}
-        disabled={disabled}
-        onChange={setLiveScore}
-        onCommit={(next) => onScoreCommit(area.id, next)}
-      />
+      <div className="min-w-0 flex-1 sm:flex-none sm:self-center">
+        <AreaSlider
+          value={area.score}
+          disabled={disabled}
+          onChange={setLiveScore}
+          onCommit={(next) => onScoreCommit(area.id, next)}
+        />
+      </div>
 
       <p
-        className={`tabular-nums text-lg font-semibold ${statusColorClass[status]}`}
+        className={`w-8 shrink-0 text-right tabular-nums text-lg font-semibold sm:w-auto sm:text-center ${statusColorClass[status]}`}
       >
         {liveScore}
       </p>

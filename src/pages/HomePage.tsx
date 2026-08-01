@@ -56,7 +56,7 @@ export function HomePage() {
         attentionAreaNames={attentionAreaNames}
       />
 
-      <div className="flex gap-6 overflow-x-auto pb-4">
+      <div className="flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:gap-6">
         {areas.map((area) => (
           <AreaRail
             key={area.id}

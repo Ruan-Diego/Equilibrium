@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Slider } from '@/components/ui/slider'
 import { clampScore, statusFromScore, type Score } from '@/domain/score'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { cn } from '@/lib/utils'
 
 const statusTrackClass: Record<ReturnType<typeof statusFromScore>, string> = {
@@ -31,6 +32,8 @@ export function AreaSlider({
 }: AreaSliderProps) {
   const [local, setLocal] = useState<Score>(value)
   const committedRef = useRef(value)
+  const isDesktop = useMediaQuery('(min-width: 640px)')
+  const orientation = isDesktop ? 'vertical' : 'horizontal'
 
   useEffect(() => {
     setLocal(value)
@@ -51,7 +54,7 @@ export function AreaSlider({
 
   return (
     <Slider
-      orientation="vertical"
+      orientation={orientation}
       min={0}
       max={10}
       step={1}
@@ -69,7 +72,9 @@ export function AreaSlider({
         commitIfChanged(local)
       }}
       className={cn(
-        'h-48 min-h-48',
+        orientation === 'vertical'
+          ? 'h-48 min-h-48'
+          : 'h-8 w-full min-w-0 **:data-[slot=slider-track]:h-1.5',
         statusTrackClass[statusFromScore(local)],
         statusThumbClass[statusFromScore(local)],
       )}
