@@ -124,8 +124,8 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Componentes shadcn listados existem e importam sem erro
-- [ ] `npm run build` passa
+- [x] Componentes shadcn listados existem e importam sem erro
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: build  
