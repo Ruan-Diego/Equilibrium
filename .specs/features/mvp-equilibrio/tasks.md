@@ -261,9 +261,9 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Funções: `listActiveAreas`, `createArea` (score inicial 5), `renameArea`, `reorderAreas`, `archiveArea`
-- [ ] Tipos TypeScript alinhados ao design
-- [ ] `npm run build` passa
+- [x] Funções: `listActiveAreas`, `createArea` (score inicial 5), `renameArea`, `reorderAreas`, `archiveArea`
+- [x] Tipos TypeScript alinhados ao design
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: build  
