@@ -101,9 +101,9 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven` (Execute)
 
 **Done when**:
-- [ ] `npm install` e `npm run build` passam
-- [ ] Tailwind aplica classe de teste no `App`
-- [ ] Vitest configurado (`npm test` roda, mesmo sem specs ainda)
+- [x] `npm install` e `npm run build` passam
+- [x] Tailwind aplica classe de teste no `App`
+- [x] Vitest configurado (`npm test` roda, mesmo sem specs ainda)
 
 **Tests**: none  
 **Gate**: build  
