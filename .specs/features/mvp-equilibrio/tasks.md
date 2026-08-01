@@ -308,9 +308,9 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Provider expõe `user`, `loading`, métodos de auth
-- [ ] Erros Firebase mapeados para mensagens PT-BR básicas
-- [ ] `npm run build` passa
+- [x] Provider expõe `user`, `loading`, métodos de auth
+- [x] Erros Firebase mapeados para mensagens PT-BR básicas
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: build  
