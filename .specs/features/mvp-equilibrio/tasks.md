@@ -169,10 +169,10 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] `firebase.ts` exporta `auth` e `db`
-- [ ] `.env.example` documenta chaves necessárias
-- [ ] `.env` no `.gitignore`
-- [ ] `npm run build` passa (init lazy-safe se env ausente em CI, ou mock env no build)
+- [x] `firebase.ts` exporta `auth` e `db`
+- [x] `.env.example` documenta chaves necessárias
+- [x] `.env` no `.gitignore`
+- [x] `npm run build` passa (init lazy-safe se env ausente em CI, ou mock env no build)
 
 **Tests**: none  
 **Gate**: build  
