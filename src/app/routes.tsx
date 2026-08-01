@@ -3,7 +3,7 @@ import { AuthGate } from '@/components/layout/AuthGate'
 import { AppShell } from '@/components/layout/AppShell'
 import { LoginPage } from '@/pages/LoginPage'
 import { HomePage } from '@/pages/HomePage'
-import { AreasPage } from '@/pages/AreasPage'
+import { AreasManagePage } from '@/pages/AreasManagePage'
 import { HistoryPage } from '@/pages/HistoryPage'
 
 export function AppRoutes() {
@@ -26,7 +26,7 @@ export function AppRoutes() {
           }
         >
           <Route index element={<HomePage />} />
-          <Route path="areas" element={<AreasPage />} />
+          <Route path="areas" element={<AreasManagePage />} />
           <Route path="history" element={<HistoryPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />

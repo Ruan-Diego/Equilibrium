@@ -427,10 +427,10 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Nome vazio bloqueado
-- [ ] Create com score 5
-- [ ] Archive remove da lista ativa
-- [ ] `npm run build` passa
+- [x] Nome vazio bloqueado
+- [x] Create com score 5
+- [x] Archive remove da lista ativa
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: build  
