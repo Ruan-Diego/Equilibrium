@@ -146,9 +146,9 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Tokens `--bg`, `--fg`, `--healthy`, `--attention`, `--alert` definidos
-- [ ] Body usa fundo escuro e Outfit
-- [ ] `npm run build` passa
+- [x] Tokens `--bg`, `--fg`, `--healthy`, `--attention`, `--alert` definidos
+- [x] Body usa fundo escuro e Outfit
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: build  
