@@ -217,8 +217,8 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] `[]` → false; `[8]` → true; `[8,7]` → false; `[9,9,8]` → true
-- [ ] Gate: `npm test` passa
+- [x] `[]` → false; `[8]` → true; `[8,7]` → false; `[9,9,8]` → true
+- [x] Gate: `npm test` passa
 
 **Tests**: unit  
 **Gate**: quick  
