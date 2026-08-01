@@ -475,9 +475,9 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Rules restringem `users/{uid}/**` ao owner
-- [ ] README cobre criação do projeto Firebase, domains GitHub Pages, deploy rules
-- [ ] Sem secrets commitados
+- [x] Rules restringem `users/{uid}/**` ao owner
+- [x] README cobre criação do projeto Firebase, domains GitHub Pages, deploy rules
+- [x] Sem secrets commitados
 
 **Tests**: none  
 **Gate**: build  

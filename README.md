@@ -21,6 +21,86 @@ Tudo o que foi alinhado até agora está em [`.specs/`](.specs/):
 
 React + Vite + TypeScript + Tailwind + shadcn/ui + Firebase (Auth + Firestore) + GitHub Pages.
 
+## Setup local
+
+### 1. Dependências
+
+```bash
+npm ci
+```
+
+### 2. Projeto Firebase
+
+1. Crie um projeto em [Firebase Console](https://console.firebase.google.com/).
+2. Ative **Authentication**:
+   - Provider **Google**
+   - Provider **E-mail/senha**
+3. Crie um app **Web** e copie a config do SDK.
+4. Ative **Cloud Firestore** (modo production; as rules do repo restringem por uid).
+
+### 3. Variáveis de ambiente
+
+Copie `.env.example` para `.env` (nunca commitar `.env`):
+
+```bash
+cp .env.example .env
+```
+
+Preencha com os valores do app Web:
+
+| Variável | Origem |
+|----------|--------|
+| `VITE_FIREBASE_API_KEY` | Firebase config `apiKey` |
+| `VITE_FIREBASE_AUTH_DOMAIN` | `authDomain` |
+| `VITE_FIREBASE_PROJECT_ID` | `projectId` |
+| `VITE_FIREBASE_STORAGE_BUCKET` | `storageBucket` |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | `messagingSenderId` |
+| `VITE_FIREBASE_APP_ID` | `appId` |
+
+As chaves `VITE_*` ficam no bundle do cliente (normal no Firebase). Segurança real vem das **Firestore rules** e dos **Authorized domains** no Auth.
+
+### 4. Domínio autorizado (GitHub Pages)
+
+No Firebase Console → Authentication → Settings → **Authorized domains**, adicione:
+
+- `localhost` (já costuma existir)
+- `<user>.github.io` (domínio do GitHub Pages deste repo)
+
+### 5. Deploy das Firestore rules
+
+O arquivo [`firestore.rules`](firestore.rules) restringe `users/{uid}/**` ao dono autenticado (`request.auth.uid == uid`).
+
+Com Firebase CLI logado no projeto:
+
+```bash
+firebase deploy --only firestore:rules
+```
+
+(Ou cole o conteúdo de `firestore.rules` no console Firestore → Rules → Publish.)
+
+### 6. Rodar o app
+
+```bash
+npm run dev
+```
+
+Build e testes:
+
+```bash
+npm test
+npm run build
+```
+
+## GitHub Pages
+
+O Vite usa `base: '/Equilibrium/'` (nome do repositório). O fallback SPA está em `public/404.html` (copiado para `dist/` no build).
+
+Para publicar:
+
+1. Faça push em `main` (o workflow de deploy sobe o artifact).
+2. Em Settings → Pages → **Source**: GitHub Actions.
+3. Abra `https://<user>.github.io/Equilibrium/`.
+
 ## Status
 
-Documentação pronta. Implementação começa na Execute (tasks T1–T19).
+MVP em implementação (tasks T1–T19 em `.specs/features/mvp-equilibrio/tasks.md`).
