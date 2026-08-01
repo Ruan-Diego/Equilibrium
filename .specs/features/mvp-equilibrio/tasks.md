@@ -403,10 +403,10 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Subscribe/lista áreas não arquivadas ordenadas
-- [ ] Falha de save reverte slider + toast
-- [ ] Empty state com CTA para `/areas`
-- [ ] `npm run build` passa
+- [x] Subscribe/lista áreas não arquivadas ordenadas
+- [x] Falha de save reverte slider + toast
+- [x] Empty state com CTA para `/areas`
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: build  
