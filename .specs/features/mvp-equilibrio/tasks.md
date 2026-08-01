@@ -451,10 +451,10 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Série step a partir de eventos
-- [ ] Filtro de intervalo funciona
-- [ ] Empty sem áreas / sem eventos
-- [ ] `npm run build` passa
+- [x] Série step a partir de eventos
+- [x] Filtro de intervalo funciona
+- [x] Empty sem áreas / sem eventos
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: full  
