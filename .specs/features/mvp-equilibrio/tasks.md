@@ -498,9 +498,9 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Workflow roda em push `main`/`master`
-- [ ] Artifact = `dist` com `404.html`
-- [ ] Documentado no README como ativar Pages (GitHub Actions)
+- [x] Workflow roda em push `main`/`master`
+- [x] Artifact = `dist` com `404.html`
+- [x] Documentado no README como ativar Pages (GitHub Actions)
 
 **Tests**: none  
 **Gate**: build  

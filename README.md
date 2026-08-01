@@ -93,13 +93,17 @@ npm run build
 
 ## GitHub Pages
 
-O Vite usa `base: '/Equilibrium/'` (nome do repositório). O fallback SPA está em `public/404.html` (copiado para `dist/` no build).
+O Vite usa `base: '/Equilibrium/'` (nome do repositório). O fallback SPA está em `public/404.html` (copiado automaticamente para `dist/` no build).
 
-Para publicar:
+### Ativar Pages (fonte = GitHub Actions)
 
-1. Faça push em `main` (o workflow de deploy sobe o artifact).
-2. Em Settings → Pages → **Source**: GitHub Actions.
-3. Abra `https://<user>.github.io/Equilibrium/`.
+1. Repo → **Settings** → **Pages**.
+2. Em **Build and deployment** → **Source**, escolha **GitHub Actions** (não “Deploy from a branch”).
+3. Faça push em `main` (ou rode o workflow **Deploy GitHub Pages** manualmente em Actions).
+4. O workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) faz `npm ci` → `npm run build` → sobe o artifact `dist` (inclui `404.html`) → `deploy-pages`.
+5. Abra `https://<user>.github.io/Equilibrium/`.
+
+Opcional: configure os mesmos `VITE_FIREBASE_*` como **Actions secrets** do repositório para o build de produção embutir a config do Firebase. Sem eles o site sobe, mas Auth/Firestore não funcionam até preencher.
 
 ## Status
 
