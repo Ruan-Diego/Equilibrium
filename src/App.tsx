@@ -1,13 +1,16 @@
+import { ThemeProvider } from 'next-themes'
 import { AuthProvider } from '@/app/providers'
+import { AppRoutes } from '@/app/routes'
+import { Toaster } from '@/components/ui/sonner'
 
 function App() {
   return (
-    <AuthProvider>
-      <main className="min-h-screen bg-background text-foreground p-8">
-        <h1 className="text-3xl font-semibold text-healthy">Equilibrium</h1>
-        <p className="mt-2 text-muted-foreground">Dark minimal theme ready</p>
-      </main>
-    </AuthProvider>
+    <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
+      <AuthProvider>
+        <AppRoutes />
+        <Toaster />
+      </AuthProvider>
+    </ThemeProvider>
   )
 }
 

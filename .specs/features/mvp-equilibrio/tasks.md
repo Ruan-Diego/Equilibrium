@@ -331,10 +331,10 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Não autenticado → `/login`; autenticado em `/login` → `/`
-- [ ] Shell com nav Home / Áreas / Histórico + logout
-- [ ] `public/404.html` presente (spa-github-pages)
-- [ ] `npm run build` passa
+- [x] Não autenticado → `/login`; autenticado em `/login` → `/`
+- [x] Shell com nav Home / Áreas / Histórico + logout
+- [x] `public/404.html` presente (spa-github-pages)
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: build  
