@@ -44,7 +44,7 @@ export function LoginPage() {
   }
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-6 py-12 text-foreground">
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-12 text-foreground">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,color-mix(in_srgb,var(--balanced)_12%,transparent),transparent_55%),radial-gradient(ellipse_at_80%_80%,color-mix(in_srgb,var(--healthy)_8%,transparent),transparent_50%)]"

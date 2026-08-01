@@ -1,8 +1,18 @@
 import { useCallback, useEffect, useState } from 'react'
-import { listActiveAreas, type Area } from '@/data/areasRepo'
+import {
+  listActiveAreas,
+  listAreas,
+  type Area,
+} from '@/data/areasRepo'
 import { useAuth } from '@/hooks/useAuth'
 
-export function useAreas() {
+type UseAreasOptions = {
+  /** When true, includes inactive areas (manage page). Default: active only. */
+  includeInactive?: boolean
+}
+
+export function useAreas(options: UseAreasOptions = {}) {
+  const { includeInactive = false } = options
   const { user } = useAuth()
   const [areas, setAreas] = useState<Area[]>([])
   const [loading, setLoading] = useState(true)
@@ -17,14 +27,16 @@ export function useAreas() {
     setLoading(true)
     setError(null)
     try {
-      const next = await listActiveAreas(user.uid)
+      const next = includeInactive
+        ? await listAreas(user.uid)
+        : await listActiveAreas(user.uid)
       setAreas(next)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Falha ao carregar áreas.')
     } finally {
       setLoading(false)
     }
-  }, [user])
+  }, [user, includeInactive])
 
   useEffect(() => {
     void refresh()

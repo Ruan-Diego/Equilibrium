@@ -1,5 +1,6 @@
 import {
   CartesianGrid,
+  Legend,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -7,25 +8,39 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import type { HistoryPoint } from '@/hooks/useAreaHistory'
+import {
+  mergeSeriesByDay,
+  seriesColor,
+  type NamedSeries,
+} from '@/domain/historySeries'
 
 interface AreaScoreChartProps {
-  points: HistoryPoint[]
+  series: NamedSeries[]
 }
 
-function formatTick(iso: string) {
-  const date = new Date(iso)
+function formatDayTick(day: string) {
+  const [y, m, d] = day.split('-').map(Number)
+  if (!y || !m || !d) return day
+  const date = new Date(y, m - 1, d)
   return date.toLocaleDateString('pt-BR', {
     day: '2-digit',
     month: 'short',
   })
 }
 
-export function AreaScoreChart({ points }: AreaScoreChartProps) {
-  const data = points.map((p) => ({
-    at: p.at.toISOString(),
-    value: p.value,
-  }))
+function formatDayLabel(day: string) {
+  const [y, m, d] = day.split('-').map(Number)
+  if (!y || !m || !d) return day
+  return new Date(y, m - 1, d).toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  })
+}
+
+export function AreaScoreChart({ series }: AreaScoreChartProps) {
+  const data = mergeSeriesByDay(series)
+  const multi = series.length > 1
 
   return (
     <div className="h-72 w-full">
@@ -33,8 +48,8 @@ export function AreaScoreChart({ points }: AreaScoreChartProps) {
         <LineChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
           <CartesianGrid stroke="var(--line)" strokeDasharray="3 3" vertical={false} />
           <XAxis
-            dataKey="at"
-            tickFormatter={formatTick}
+            dataKey="day"
+            tickFormatter={formatDayTick}
             stroke="var(--muted)"
             tick={{ fill: 'var(--muted)', fontSize: 12 }}
             axisLine={{ stroke: 'var(--line)' }}
@@ -57,25 +72,31 @@ export function AreaScoreChart({ points }: AreaScoreChartProps) {
               borderRadius: '0.5rem',
               color: 'var(--fg)',
             }}
-            labelFormatter={(label) =>
-              new Date(String(label)).toLocaleString('pt-BR', {
-                day: '2-digit',
-                month: 'short',
-                hour: '2-digit',
-                minute: '2-digit',
-              })
-            }
-            formatter={(value) => [`${value as number}`, 'Score']}
+            labelFormatter={(label) => formatDayLabel(String(label))}
+            formatter={(value, name) => {
+              if (value == null) return ['—', String(name)]
+              return [`${value as number}`, String(name)]
+            }}
           />
-          <Line
-            type="stepAfter"
-            dataKey="value"
-            stroke="var(--healthy)"
-            strokeWidth={2}
-            dot={{ r: 3, fill: 'var(--healthy)', strokeWidth: 0 }}
-            activeDot={{ r: 5 }}
-            isAnimationActive={false}
-          />
+          {multi ? (
+            <Legend
+              wrapperStyle={{ color: 'var(--muted)', fontSize: 12 }}
+            />
+          ) : null}
+          {series.map((s, index) => (
+            <Line
+              key={s.id}
+              type="stepAfter"
+              dataKey={s.id}
+              name={s.name}
+              stroke={seriesColor(index)}
+              strokeWidth={2}
+              dot={{ r: multi ? 2 : 3, fill: seriesColor(index), strokeWidth: 0 }}
+              activeDot={{ r: 5 }}
+              connectNulls
+              isAnimationActive={false}
+            />
+          ))}
         </LineChart>
       </ResponsiveContainer>
     </div>

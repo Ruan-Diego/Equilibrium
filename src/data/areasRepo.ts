@@ -19,9 +19,15 @@ export interface Area {
   name: string
   score: Score
   order: number
-  archived: boolean
+  active: boolean
   createdAt: Timestamp
   updatedAt: Timestamp
+}
+
+type AreaDoc = Omit<Area, 'id' | 'active'> & {
+  active?: boolean
+  /** @deprecated Prefer `active`. Kept for docs created before the toggle. */
+  archived?: boolean
 }
 
 function areasCol(uid: string) {
@@ -32,24 +38,43 @@ function areaRef(uid: string, areaId: string) {
   return doc(db, 'users', uid, 'areas', areaId)
 }
 
-export async function listActiveAreas(uid: string): Promise<Area[]> {
-  const q = query(
-    areasCol(uid),
-    where('archived', '==', false),
-    orderBy('order'),
-  )
+function eventsCol(uid: string) {
+  return collection(db, 'users', uid, 'events')
+}
+
+function mapArea(id: string, data: AreaDoc): Area {
+  return {
+    id,
+    name: data.name,
+    score: data.score,
+    order: data.order,
+    active: data.active ?? data.archived === false,
+    createdAt: data.createdAt,
+    updatedAt: data.updatedAt,
+  }
+}
+
+/** All areas (active and inactive), ordered for the manage page. */
+export async function listAreas(uid: string): Promise<Area[]> {
+  const q = query(areasCol(uid), orderBy('order'))
   const snap = await getDocs(q)
-  return snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<Area, 'id'>) }))
+  return snap.docs.map((d) => mapArea(d.id, d.data() as AreaDoc))
+}
+
+/** Areas that appear on Home / History (active only). */
+export async function listActiveAreas(uid: string): Promise<Area[]> {
+  const all = await listAreas(uid)
+  return all.filter((a) => a.active)
 }
 
 export async function createArea(uid: string, name: string): Promise<string> {
-  const active = await listActiveAreas(uid)
-  const order = active.length
+  const existing = await listAreas(uid)
+  const order = existing.length
   const ref = await addDoc(areasCol(uid), {
     name,
     score: 5 as Score,
     order,
-    archived: false,
+    active: true,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   })
@@ -63,6 +88,17 @@ export async function renameArea(
 ): Promise<void> {
   await updateDoc(areaRef(uid, areaId), {
     name,
+    updatedAt: serverTimestamp(),
+  })
+}
+
+export async function setAreaActive(
+  uid: string,
+  areaId: string,
+  active: boolean,
+): Promise<void> {
+  await updateDoc(areaRef(uid, areaId), {
+    active,
     updatedAt: serverTimestamp(),
   })
 }
@@ -81,9 +117,19 @@ export async function reorderAreas(
   await batch.commit()
 }
 
-export async function archiveArea(uid: string, areaId: string): Promise<void> {
-  await updateDoc(areaRef(uid, areaId), {
-    archived: true,
-    updatedAt: serverTimestamp(),
-  })
+/** Hard-delete the area and its attention events. */
+export async function deleteArea(uid: string, areaId: string): Promise<void> {
+  const eventsSnap = await getDocs(
+    query(eventsCol(uid), where('areaId', '==', areaId)),
+  )
+
+  const docs = [areaRef(uid, areaId), ...eventsSnap.docs.map((d) => d.ref)]
+  const chunkSize = 450
+  for (let i = 0; i < docs.length; i += chunkSize) {
+    const batch = writeBatch(db)
+    for (const ref of docs.slice(i, i + chunkSize)) {
+      batch.delete(ref)
+    }
+    await batch.commit()
+  }
 }

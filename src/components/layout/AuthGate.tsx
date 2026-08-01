@@ -14,7 +14,7 @@ export function AuthGate({ guestOnly = false, children }: AuthGateProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background text-muted-foreground flex items-center justify-center">
+      <div className="min-h-screen text-muted-foreground flex items-center justify-center">
         Carregando…
       </div>
     )

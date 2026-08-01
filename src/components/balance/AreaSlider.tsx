@@ -18,10 +18,17 @@ const statusThumbClass: Record<ReturnType<typeof statusFromScore>, string> = {
 type AreaSliderProps = {
   value: Score
   onCommit: (next: Score) => void
+  /** Fires while dragging / stepping so the UI can show a live preview. */
+  onChange?: (next: Score) => void
   disabled?: boolean
 }
 
-export function AreaSlider({ value, onCommit, disabled }: AreaSliderProps) {
+export function AreaSlider({
+  value,
+  onCommit,
+  onChange,
+  disabled,
+}: AreaSliderProps) {
   const [local, setLocal] = useState<Score>(value)
   const committedRef = useRef(value)
 
@@ -29,6 +36,11 @@ export function AreaSlider({ value, onCommit, disabled }: AreaSliderProps) {
     setLocal(value)
     committedRef.current = value
   }, [value])
+
+  function preview(next: Score) {
+    setLocal(next)
+    onChange?.(next)
+  }
 
   function commitIfChanged(next: Score) {
     if (next !== committedRef.current) {
@@ -43,16 +55,14 @@ export function AreaSlider({ value, onCommit, disabled }: AreaSliderProps) {
       min={0}
       max={10}
       step={1}
-      inverted
       disabled={disabled}
       value={[local]}
       onValueChange={(vals) => {
-        const next = clampScore(vals[0] ?? local)
-        setLocal(next)
+        preview(clampScore(vals[0] ?? local))
       }}
       onValueCommit={(vals) => {
         const next = clampScore(vals[0] ?? local)
-        setLocal(next)
+        preview(next)
         commitIfChanged(next)
       }}
       onKeyUp={() => {

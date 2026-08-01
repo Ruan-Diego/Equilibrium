@@ -12,7 +12,7 @@ export function clampScore(n: number): Score {
 }
 
 export function statusFromScore(score: number): ScoreStatus {
-  if (score >= 8) return 'healthy'
+  if (score >= 7) return 'healthy'
   if (score >= 5) return 'attention'
   return 'alert'
 }

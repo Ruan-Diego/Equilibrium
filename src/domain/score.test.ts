@@ -14,12 +14,12 @@ describe('statusFromScore', () => {
     expect(statusFromScore(5)).toBe('attention')
   })
 
-  it('returns attention for score 7 (upper attention bound)', () => {
-    expect(statusFromScore(7)).toBe('attention')
+  it('returns attention for score 6 (upper attention bound)', () => {
+    expect(statusFromScore(6)).toBe('attention')
   })
 
-  it('returns healthy for score 8 (lower healthy bound)', () => {
-    expect(statusFromScore(8)).toBe('healthy')
+  it('returns healthy for score 7 (lower healthy bound)', () => {
+    expect(statusFromScore(7)).toBe('healthy')
   })
 
   it('returns healthy for score 10', () => {

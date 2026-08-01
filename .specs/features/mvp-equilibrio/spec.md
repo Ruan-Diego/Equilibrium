@@ -170,14 +170,14 @@ A atenção na vida se concentra no urgente e áreas importantes ficam sem cuida
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| AUTH-01 | P1: Autenticação | Tasks | In Tasks |
-| AREA-01 | P1: CRUD de Áreas | Tasks | In Tasks |
-| AREA-02 | P1: CRUD de Áreas | Tasks | In Tasks |
-| ATTN-01 | P1: Slider 0–10 | Tasks | In Tasks |
-| ATTN-02 | P1: Slider 0–10 | Tasks | In Tasks |
-| HOME-01 | P1: Home estados | Tasks | In Tasks |
-| HOME-02 | P1: Home equilíbrio geral | Tasks | In Tasks |
-| HIST-01 | P1: Histórico | Tasks | In Tasks |
+| AUTH-01 | P1: Autenticação | Execute | Done |
+| AREA-01 | P1: CRUD de Áreas | Execute | Done |
+| AREA-02 | P1: CRUD de Áreas | Execute | Done |
+| ATTN-01 | P1: Slider 0–10 | Execute | Done |
+| ATTN-02 | P1: Slider 0–10 | Execute | Done |
+| HOME-01 | P1: Home estados | Execute | Done |
+| HOME-02 | P1: Home equilíbrio geral | Execute | Done |
+| HIST-01 | P1: Histórico | Execute | Done |
 | BAL-01 | P2: Polish equilíbrio | - | Pending |
 | DECAY-01 | P3: Decaimento | - | Pending |
 

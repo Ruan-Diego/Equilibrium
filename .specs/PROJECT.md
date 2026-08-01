@@ -1,6 +1,6 @@
 # Equilibrium — Documento de Projeto
 
-**Status:** Rascunho para alinhamento  
+**Status:** MVP implementado (Verifier PASS) — UAT live pendente Firebase  
 **Data:** 2026-08-01  
 **Tipo:** App pessoal (single-user first; multi-user via auth Firebase)
 
@@ -234,7 +234,8 @@ Limiares visuais (escala 0–10):
 | Discuss | `.specs/features/mvp-equilibrio/context.md` | Fechado |
 | Design | `design.md` | Approved |
 | Tasks | `tasks.md` | Ready (T1–T19) |
-| Execute | implementação | **Próximo** |
+| Execute | implementação | Done (T1–T19) |
+| Validate | `validation.md` | PASS |
 
 ---
 
@@ -249,4 +250,4 @@ Limiares visuais (escala 0–10):
 | Visual | Minimalista, escuro |
 
 Detalhes em `.specs/features/mvp-equilibrio/context.md`.  
-**Próximo:** Execute (`tasks.md` T1–T19).
+**Próximo:** Configurar Firebase + push/Pages; UAT live.

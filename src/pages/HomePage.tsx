@@ -18,7 +18,7 @@ export function HomePage() {
   const scores = areas.map((a) => a.score)
   const balanced = isBalanced(scores)
   const attentionAreaNames = areas
-    .filter((a) => a.score <= 7)
+    .filter((a) => a.score < 7)
     .map((a) => a.name)
 
   if (loading && areas.length === 0) {
@@ -41,9 +41,6 @@ export function HomePage() {
   if (areas.length === 0) {
     return (
       <section className="flex min-h-[50vh] flex-col justify-center gap-6">
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-          Equilibrium
-        </h1>
         <p className="max-w-md text-muted-foreground">{emptyLabel}</p>
         <Button asChild size="lg" className="w-fit">
           <Link to="/areas">Criar área</Link>
@@ -54,15 +51,10 @@ export function HomePage() {
 
   return (
     <section className="space-y-10">
-      <header className="space-y-4">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          Equilibrium
-        </h1>
-        <BalanceStatus
-          balanced={balanced}
-          attentionAreaNames={attentionAreaNames}
-        />
-      </header>
+      <BalanceStatus
+        balanced={balanced}
+        attentionAreaNames={attentionAreaNames}
+      />
 
       <div className="flex gap-6 overflow-x-auto pb-4">
         {areas.map((area) => (

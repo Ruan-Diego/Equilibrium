@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AreaScoreChart } from '@/components/history/AreaScoreChart'
 import { RangeToggle } from '@/components/history/RangeToggle'
 import { Button } from '@/components/ui/button'
 import { useAreas } from '@/hooks/useAreas'
 import {
+  ALL_AREAS_ID,
   useAreaHistory,
   type HistoryRange,
 } from '@/hooks/useAreaHistory'
@@ -15,15 +16,22 @@ export function HistoryPage() {
     useAreas()
   const [areaId, setAreaId] = useState<string | null>(null)
   const [range, setRange] = useState<HistoryRange>('30')
-  const { points, loading: historyLoading, error: historyError } =
-    useAreaHistory(areaId, range)
+  const areaMeta = useMemo(
+    () => areas.map((a) => ({ id: a.id, name: a.name })),
+    [areas],
+  )
+  const { series, hasPoints, loading: historyLoading, error: historyError } =
+    useAreaHistory(areaId, range, areaMeta)
 
   useEffect(() => {
     if (areas.length === 0) {
       setAreaId(null)
       return
     }
-    if (!areaId || !areas.some((a) => a.id === areaId)) {
+    if (
+      !areaId ||
+      (areaId !== ALL_AREAS_ID && !areas.some((a) => a.id === areaId))
+    ) {
       setAreaId(areas[0].id)
     }
   }, [areas, areaId])
@@ -57,6 +65,11 @@ export function HistoryPage() {
     )
   }
 
+  const emptyCopy =
+    areaId === ALL_AREAS_ID
+      ? 'Ainda não há eventos de atenção no intervalo selecionado. Ajuste os scores na Home para registrar o histórico.'
+      : 'Ainda não há eventos de atenção nesta área para o intervalo selecionado. Ajuste o score na Home para registrar o histórico.'
+
   return (
     <section className="space-y-8">
       <header className="space-y-4">
@@ -69,6 +82,7 @@ export function HistoryPage() {
               value={areaId ?? ''}
               onChange={(e) => setAreaId(e.target.value)}
             >
+              <option value={ALL_AREAS_ID}>Todas as áreas</option>
               {areas.map((area) => (
                 <option key={area.id} value={area.id}>
                   {area.name}
@@ -86,13 +100,10 @@ export function HistoryPage() {
 
       {historyLoading ? (
         <p className="text-sm text-muted-foreground">Carregando histórico…</p>
-      ) : points.length === 0 ? (
-        <p className="text-sm text-muted-foreground">
-          Ainda não há eventos de atenção nesta área para o intervalo
-          selecionado. Ajuste o score na Home para registrar o histórico.
-        </p>
+      ) : !hasPoints ? (
+        <p className="text-sm text-muted-foreground">{emptyCopy}</p>
       ) : (
-        <AreaScoreChart points={points} />
+        <AreaScoreChart series={series} />
       )}
     </section>
   )

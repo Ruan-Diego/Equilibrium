@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import type { Area } from '@/data/areasRepo'
 import { statusFromScore, type Score } from '@/domain/score'
 import { statusLabels } from '@/domain/labels'
@@ -16,6 +17,13 @@ type AreaRailProps = {
 }
 
 export function AreaRail({ area, onScoreCommit, disabled }: AreaRailProps) {
+  const [liveScore, setLiveScore] = useState(area.score)
+
+  useEffect(() => {
+    setLiveScore(area.score)
+  }, [area.score])
+
+  // Status follows committed score only (updates on release, not while dragging).
   const status = statusFromScore(area.score)
 
   return (
@@ -32,13 +40,14 @@ export function AreaRail({ area, onScoreCommit, disabled }: AreaRailProps) {
       <AreaSlider
         value={area.score}
         disabled={disabled}
+        onChange={setLiveScore}
         onCommit={(next) => onScoreCommit(area.id, next)}
       />
 
       <p
         className={`tabular-nums text-lg font-semibold ${statusColorClass[status]}`}
       >
-        {area.score}
+        {liveScore}
       </p>
     </div>
   )

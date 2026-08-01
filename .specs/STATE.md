@@ -53,18 +53,43 @@
 ### AD-007
 - **Decision**: Persistência de score no release do slider (optimistic); eventos com `previousValue`+`value`; áreas arquivadas via `archived`; score inicial de área = 5
 - **Reason**: Poucos writes, histórico auditável, soft-delete preserva eventos, neutro não finge equilíbrio
-- **Trade-off**: Sem DnD de reordenação no MVP (↑↓); meio ponto fora
+- **Trade-off**: Meio ponto fora do MVP
 - **Scope**: Áreas, eventos, AreaSlider
+- **Date**: 2026-08-01
+- **Status**: superseded by AD-010 (archive → delete + active)
+
+### AD-008
+- **Decision**: Histórico agrega 1 ponto por dia local (último evento do dia); seletor “Todas as áreas” sobrepõe linhas no mesmo gráfico
+- **Reason**: Pedido do usuário para leitura diária e comparação visual entre áreas
+- **Trade-off**: Múltiplas atualizações no mesmo dia colapsam; overlay usa `connectNulls` entre dias sem update
+- **Scope**: HistoryPage / AreaScoreChart / useAreaHistory
+- **Date**: 2026-08-01
+- **Status**: active
+
+### AD-009
+- **Decision**: Reordenação de áreas via drag-and-drop (`@dnd-kit`) com handle; persistência otimista em `reorderAreas`
+- **Reason**: Pedido do usuário; setas ↑↓ eram enough no MVP, mas DnD é mais direto para listas curtas
+- **Trade-off**: Dependência extra (`@dnd-kit/*`); teclado via KeyboardSensor do dnd-kit
+- **Scope**: AreasManagePage
+- **Date**: 2026-08-01
+- **Status**: active
+
+### AD-010
+- **Decision**: Áreas usam hard delete (`deleteArea` + eventos da área); campo `active` liga/desliga presença na Home/Histórico; manage lista todas
+- **Reason**: Pedido do usuário — arquivar trocado por deletar; toggle para pausar sem apagar
+- **Trade-off**: Delete apaga histórico da área; docs antigos com `archived` mapeiam para `active` na leitura
+- **Scope**: areasRepo, useAreas, AreasManagePage, firestore.indexes
 - **Date**: 2026-08-01
 - **Status**: active
 
 ## Handoff
 
-- **Feature**: MVP Equilíbrio / `.specs/features/mvp-equilibrio`
-- **Phase / Task**: Tasks prontas (T1–T19) — próximo: Execute a partir de T1
-- **Completed**: PROJECT, spec, context, design, tasks, AD-001…007
+- **Feature**: Delete + toggle ativo/inativo nas Áreas
+- **Phase / Task**: Execute (small enhancement)
+- **Completed**: AD-010 — hard delete, `active` toggle, manage lista inativas
 - **In-progress**: none
-- **Next step**: Execute T1 (scaffold Vite) seguindo tlc-spec-driven; oferecer sub-agents por fase (5 fases)
-- **Blockers**: none (Firebase credentials necessárias a partir de T4/runtime)
-- **Uncommitted files**: none after push
+- **Next step**: UAT — desativar some da Home; deletar pede confirmação e some do histórico
+- **Blockers**: none
+- **Uncommitted files**: areasRepo + useAreas + AreasManagePage + Switch + indexes + STATE
 - **Branch**: main
+- **Diff range**: local uncommitted
