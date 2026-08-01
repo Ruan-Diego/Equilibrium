@@ -355,10 +355,10 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Fluxos Google e email visíveis e disparam hooks
-- [ ] Erros exibidos na UI
-- [ ] Visual dark minimalista
-- [ ] `npm run build` passa
+- [x] Fluxos Google e email visíveis e disparam hooks
+- [x] Erros exibidos na UI
+- [x] Visual dark minimalista
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: build  
