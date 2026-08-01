@@ -379,10 +379,10 @@ T16 → T17 → T18 → T19
 - Skill: `tlc-spec-driven`
 
 **Done when**:
-- [ ] Slider inteiro 0–10; `onCommit(next)` só no release e se mudou
-- [ ] Cores/microcopy por estado
-- [ ] BalanceStatus mostra Equilibrado / Fora de equilíbrio
-- [ ] `npm run build` passa
+- [x] Slider inteiro 0–10; `onCommit(next)` só no release e se mudou
+- [x] Cores/microcopy por estado
+- [x] BalanceStatus mostra Equilibrado / Fora de equilíbrio
+- [x] `npm run build` passa
 
 **Tests**: none  
 **Gate**: build  
