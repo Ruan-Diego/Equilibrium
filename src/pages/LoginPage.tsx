@@ -2,11 +2,14 @@ import { useState, type FormEvent } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { IntroOverlay } from '@/components/intro/IntroOverlay'
+import { useIntroController } from '@/hooks/useIntroController'
 
 type Mode = 'login' | 'signup' | 'reset'
 
 export function LoginPage() {
   const { signInGoogle, signInEmail, signUpEmail, resetPassword } = useAuth()
+  const intro = useIntroController()
   const [mode, setMode] = useState<Mode>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -164,8 +167,24 @@ export function LoginPage() {
               Voltar ao login
             </button>
           )}
+          <button
+            type="button"
+            className="mt-2 hover:text-foreground"
+            onClick={intro.openPreview}
+          >
+            Conhecer o app
+          </button>
         </div>
       </div>
+
+      <IntroOverlay
+        open={intro.open}
+        mode={intro.mode}
+        onOpenChange={(next) => {
+          if (!next) intro.close()
+        }}
+        onComplete={intro.complete}
+      />
     </main>
   )
 }

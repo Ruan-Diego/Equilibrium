@@ -1,6 +1,8 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
+import { IntroOverlay } from '@/components/intro/IntroOverlay'
+import { useIntroController } from '@/hooks/useIntroController'
 import { cn } from '@/lib/utils'
 
 const links = [
@@ -10,7 +12,8 @@ const links = [
 ] as const
 
 export function AppShell() {
-  const { signOut } = useAuth()
+  const { user, signOut } = useAuth()
+  const intro = useIntroController({ uid: user?.uid, autoCheck: true })
 
   return (
     <div className="min-h-screen text-foreground">
@@ -62,6 +65,15 @@ export function AppShell() {
       <main className="mx-auto max-w-5xl px-4 py-6 sm:py-8">
         <Outlet />
       </main>
+
+      <IntroOverlay
+        open={intro.open}
+        mode={intro.mode}
+        onOpenChange={(next) => {
+          if (!next) intro.close()
+        }}
+        onComplete={intro.complete}
+      />
     </div>
   )
 }
