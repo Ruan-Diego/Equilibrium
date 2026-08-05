@@ -3,17 +3,20 @@ import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { IntroOverlay } from '@/components/intro/IntroOverlay'
 import { useIntroController } from '@/hooks/useIntroController'
+import { useDailyBrowserReminder } from '@/hooks/useDailyBrowserReminder'
 import { cn } from '@/lib/utils'
 
 const links = [
   { to: '/', label: 'Home', end: true },
   { to: '/areas', label: 'Áreas' },
   { to: '/history', label: 'Histórico' },
+  { to: '/settings', label: 'Configurações' },
 ] as const
 
 export function AppShell() {
   const { user, signOut } = useAuth()
   const intro = useIntroController({ uid: user?.uid, autoCheck: true })
+  useDailyBrowserReminder({ uid: user?.uid })
 
   return (
     <div className="min-h-screen text-foreground">
