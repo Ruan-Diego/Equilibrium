@@ -5,6 +5,7 @@ import { LoginPage } from '@/pages/LoginPage'
 import { HomePage } from '@/pages/HomePage'
 import { AreasManagePage } from '@/pages/AreasManagePage'
 import { HistoryPage } from '@/pages/HistoryPage'
+import { SettingsPage } from '@/pages/SettingsPage'
 
 export function AppRoutes() {
   return (
@@ -28,6 +29,7 @@ export function AppRoutes() {
           <Route index element={<HomePage />} />
           <Route path="areas" element={<AreasManagePage />} />
           <Route path="history" element={<HistoryPage />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
